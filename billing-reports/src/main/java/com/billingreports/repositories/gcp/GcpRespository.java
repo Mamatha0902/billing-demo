@@ -26,8 +26,8 @@ public interface GcpRespository extends MongoRepository<Gcp, ObjectId> {
 
     @Query("{'projectName': ?0, 'date': { $gte: ?1, $lte: ?2 } }")
     List<Gcp> findByProjectNameAndDateRange(String projectName, LocalDateTime startDate, LocalDateTime endDate);
-    @Query("{'projecttName': ?0, 'serviceDescription': ?1, 'date': {'$gte': ?2, '$lte': ?3}}")
-    List<Gcp> findByProjecttNameAndServiceDescriptionAndDate(String projectName, String serviceDescription, LocalDateTime startDate, LocalDateTime endDate);
+    @Query("{'projectName': ?0, 'serviceDescription': ?1, 'date': {'$gte': ?2, '$lte': ?3}}")
+    List<Gcp> findByProjectNameAndServiceDescriptionAndDate(String projectName, String serviceDescription, LocalDateTime startDate, LocalDateTime endDate);
 
     @Query(value = "{'projectName' : {$exists : true}}", fields = "{'projectName' : 1, '_id':0}")
     List<String> findDistinctProjectName();

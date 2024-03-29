@@ -12,19 +12,26 @@ export default function AwsTable({ data, months, service, fromDate, toDate }) {
     fromDate !== 0 &&
     toDate !== 0
   ) {
-    rows = data.map((detail) => ({
-      id: detail.id,
+    rows = data.map((detail, index) => ({
+      id: index + 1,
+      accountId: detail.accountId,
       startDate: detail.startDate,
       endDate: detail.endDate,
       service: detail.service,
       amount: detail.amount,
     }));
   }
+  // console.log(data, 'daaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaata')
 
   const columns = [
     {
       field: "id",
-      headerName: "Id",
+      headerName: "S No",
+      width: 150,
+    },
+    {
+      field: "accountId",
+      headerName: "Account Id",
       width: 250,
     },
     {

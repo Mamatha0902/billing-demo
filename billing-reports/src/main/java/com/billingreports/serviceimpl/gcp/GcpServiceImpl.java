@@ -240,7 +240,7 @@ public class GcpServiceImpl implements GcpService {
 
         System.out.println("Years: " + period.getYears() + ", Months: " + period.getMonths() + ", Days: " + period.getDays());
 
-        return gcpRepository.findByProjecttNameAndServiceDescriptionAndDate(projectName, serviceDescription, startLocalDate, endLocalDate);
+        return gcpRepository.findByProjectNameAndServiceDescriptionAndDate(projectName, serviceDescription, startLocalDate, endLocalDate);
     }
 
     @Override
@@ -251,7 +251,7 @@ public class GcpServiceImpl implements GcpService {
         System.out.println("Start Date: " + startDate);
         System.out.println("End date: " + endDate);
 
-        return gcpRepository.findByProjecttNameAndServiceDescriptionAndDate(projectName, serviceDescription, startDate, endDate);
+        return gcpRepository.findByProjectNameAndServiceDescriptionAndDate(projectName, serviceDescription, startDate, endDate);
     }
 
 

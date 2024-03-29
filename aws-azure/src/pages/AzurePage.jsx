@@ -25,8 +25,8 @@ export const AzurePage = () => {
   const [display, setDisplay] = useState(false);
   const [data, setData] = useState([]);
   const [calling, setCalling] = useState(true);
-  const [azureSubscriptionValue, setAzureSubscriptionValue] = useState('Microsoft Azure Motivity');
-  const [selectedTenantValue, setSelectedTenantValue] = useState('Motivity Labs');
+  const [azureSubscriptionValue, setAzureSubscriptionValue] = useState('');
+  const [selectedTenantValue, setSelectedTenantValue] = useState('');
 
   // console.log("dateRange", dateRange);
   useEffect(() => {

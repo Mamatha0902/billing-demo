@@ -1,5 +1,6 @@
 package com.billingreports.controllers.gcp;
 
+import com.billingreports.entities.azure.Azure;
 import com.billingreports.entities.gcp.Gcp;
 import com.billingreports.entities.gcp.GcpAggregateResult;
 import com.billingreports.exceptions.ValidDateRangeException;
@@ -114,9 +115,13 @@ public class GcpController {
         List<Map<String, Object>> billingPeriod = gcpService.generateBillingPeriod(startDate, endDate, months);
 
         List<GcpAggregateResult> aggregateResults = gcpService.getServiceTopFiveTotalCosts(projectName, startDate, endDate, months);
+
+        String currency = billingDetails.stream().findFirst().map(Gcp::getCurrency).orElse("Unknown");
+
         // Create a response map
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("billingDetails", billingDetails);
+        response.put("currency", currency);
         response.put("monthlyTotalAmounts", monthlyTotalAmounts);
         response.put("totalAmount", totalAmount);
         response.put("billingPeriod", billingPeriod);
