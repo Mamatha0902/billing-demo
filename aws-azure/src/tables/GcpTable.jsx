@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 
 export default function GcpTable({ data, months, serviceDescription, fromDate, toDate }) {
   let rows = [];
-
+  // console.log(data, 'daaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaata')
   if (
     Array.isArray(data) &&
     months !== 0 &&
@@ -12,8 +12,9 @@ export default function GcpTable({ data, months, serviceDescription, fromDate, t
     fromDate !== 0 &&
     toDate !== 0
   ) {
-    rows = data.map((detail) => ({
-      id: detail.projectId,
+    rows = data.map((detail, index) => ({
+      id: index + 1,
+      projectId: detail.projectId,
       projectName: detail.projectName,
       date: detail.date,
       serviceId: detail.serviceId,
@@ -22,11 +23,20 @@ export default function GcpTable({ data, months, serviceDescription, fromDate, t
 
     }));
   }
+  // console.log(data, 'daaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaata')
 
   const columns = [
     {
       field: "id",
-      headerName: "project Id",
+      headerName: "S.No",
+      // width: 300,
+      minWidth: 100,
+      flex: 1
+
+    },
+    {
+      field: "projectId",
+      headerName: "Project Id",
       // width: 300,
       minWidth: 250,
       flex: 1
@@ -34,7 +44,7 @@ export default function GcpTable({ data, months, serviceDescription, fromDate, t
     },
     {
       field: "projectName",
-      headerName: "project Name",
+      headerName: "Project Name",
       // width: 300,
       minWidth: 250,
       flex: 1

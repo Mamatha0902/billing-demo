@@ -4,7 +4,7 @@ import CustomBarChart from '../components/CustomBarChart';
 // import AwsTable from '../tables/AwsTable';
 import CustomPieChart from '../components/CustomPieChart';
 const BillingDetailsChartsAndTable = (props) => {
-    const { data, monthdata, topFiveCustomers, costType  } = props;
+    const { data, monthdata, topFiveCustomers, costType } = props;
     return (
         <>
             <Grid
@@ -67,6 +67,7 @@ const BillingDetailsChartsAndTable = (props) => {
                             {data?.top5Services && data?.top5Services?.length > 0 ? <CustomPieChart
                                 data={data?.top5Services && topFiveCustomers}
                                 height={300}
+                                costType={costType}
                             /> : <div className="h6 d-flex flex-column align-items-center justify-content-center" style={{ height: '300px' }}>No Data Available</div>}
                         </div>
                     </div>

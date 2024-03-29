@@ -194,7 +194,7 @@ export const GcpPage = () => {
           />
         </div>
       </BillingInformationCard>
-      <BillingDetailsChartsAndTable data={data} monthdata={monthdata} topFiveCustomers={topFiveCustomers} >
+      <BillingDetailsChartsAndTable data={data} monthdata={monthdata} topFiveCustomers={topFiveCustomers} costType={data?.currency}>
         <GcpTable data={data?.billingDetails} />
       </BillingDetailsChartsAndTable>
 

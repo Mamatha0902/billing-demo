@@ -27,8 +27,10 @@ const ServiceSelector = ({ service, handleServiceChange, selectedAccountValue })
         console.error("Error fetching service options:", error);
       }
     };
-
-    fetchServiceOptions();
+    if (selectedAccountValue) {
+      fetchServiceOptions();
+    }
+    // fetchServiceOptions();
   }, [clicked, selectedAccountValue]);
 
   const handleFocus = () => {
