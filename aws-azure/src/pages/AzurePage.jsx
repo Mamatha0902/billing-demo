@@ -13,9 +13,13 @@ import AzureTable from "../tables/AzureTable";
 import BillingInformationCard from "../common/BillingInformationCard";
 import BillingDetailsChartsAndTable from "../common/BillingDetailsChartsAndTable";
 import { cleanDigitSectionValue } from "@mui/x-date-pickers/internals/hooks/useField/useField.utils";
+import { useContext } from "react";
+import LoaderContext from "../context/LoaderContext";
 
 export const AzurePage = () => {
   const [ResourseType, setResourseType] = useState("");
+  const { loading, startLoading } = useContext(LoaderContext);
+
   // const [sidenavOpen, setSidenavOpen] = useState(false);
   const [dateRange, setDateRange] = useState({
     startDate: null,
@@ -30,6 +34,7 @@ export const AzurePage = () => {
 
   // console.log("dateRange", dateRange);
   useEffect(() => {
+    startLoading(true)
     if (selectedTenantValue !== '' && azureSubscriptionValue !== '') {
       forAzureGet();
     }
@@ -58,9 +63,11 @@ export const AzurePage = () => {
       .then((res) => {
         // console.log(res, 'res');
         setData(res);
+        startLoading(false)
       })
       .catch((error) => {
         console.log(error);
+        startLoading(false)
       });
   };
 

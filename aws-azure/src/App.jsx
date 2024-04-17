@@ -12,6 +12,7 @@ import LoginPage from "./authenticate/Login";
 import Login from "./authenticate/Login";
 import Signup from "./authenticate/Signup";
 import Layout from "./layout/index";
+import { LoaderProvider } from './context/LoaderContext';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
@@ -27,18 +28,20 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route element={<ProtectedRoute />}>
-            <Route element={<Layout />}>
-              <Route path="/home" exact element={<Home />}></Route>
-              <Route path="/awspage" exact element={<Awspage />}></Route>
-              <Route path="/azurepage" exact element={<AzurePage />}></Route>
-              <Route path="/gcppage" exact element={<GcpPage />}></Route>
-              <Route path="/gitpage" exact element={<GitPage />}></Route>
-              <Route path="/atlassian" exact element={<Atlassian />}></Route>
+          <Route element={<LoaderProvider />}>
+            <Route element={<ProtectedRoute />}>
+              <Route element={<Layout />}>
+                <Route path="/home" exact element={<Home />}></Route>
+                <Route path="/awspage" exact element={<Awspage />}></Route>
+                <Route path="/azurepage" exact element={<AzurePage />}></Route>
+                <Route path="/gcppage" exact element={<GcpPage />}></Route>
+                <Route path="/gitpage" exact element={<GitPage />}></Route>
+                <Route path="/atlassian" exact element={<Atlassian />}></Route>
+              </Route>
             </Route>
+            <Route path="/" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
           </Route>
-          <Route path="/" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -6,7 +6,10 @@ import { awsService } from "../services/Services";
 import { azureService } from "../services/Services";
 import { gcpService } from "../services/Services";
 import CustomPieChart from "../components/CustomPieChart";
+import { useContext } from "react";
+import LoaderContext from "../context/LoaderContext";
 export const Home = () => {
+  const { loading, startLoading } = useContext(LoaderContext);
 
   const [data, setData] = useState({
     awsData: '',
@@ -15,6 +18,7 @@ export const Home = () => {
   });
 
   useEffect(() => {
+    startLoading(true)
     forAwsGet();
   }, []);
   const forAwsGet = async () => {
@@ -23,27 +27,33 @@ export const Home = () => {
         // console.log(res);
         setData((prev) => ({ ...prev, awsData: res }))
         // setawsData(res);
+        startLoading(false)
       })
       .catch((error) => {
         console.log(error);
+        startLoading(false)
       });
     await azureService('', '', '', 1, 'Microsoft Azure Motivity', 'Motivity Labs')
       .then((res) => {
         // console.log(res);
         setData((prev) => ({ ...prev, azureData: res }))
         // setazureData(res);
+        startLoading(false)
       })
       .catch((error) => {
         console.log(error);
+        startLoading(false)
       });
     await gcpService('', '', '', 1, 'My Maps Project')
       .then((res) => {
         // console.log(res);
         setData((prev) => ({ ...prev, gcpData: res }))
         // setgcpData(res);
+        startLoading(false)
       })
       .catch((error) => {
         console.log(error);
+        startLoading(false)
       });
   };
   console.log("awsData", data);
@@ -115,6 +125,7 @@ export const Home = () => {
               <div className="h5 fw-bold" style={{ fontSize: '17px' }}>Top 5 AWS Consumers (Motivity Labs)</div>
               {data?.awsData?.top5Services && data?.awsData?.top5Services?.length > 0 ? <CustomPieChart
                 data={data?.awsData?.top5Services && topAWSFiveCustomers}
+                costType={data?.awsData?.currency}
                 height={403}
               /> : <div className="h6 d-flex flex-column align-items-center justify-content-center" style={{ height: '403px' }}>No Data Available</div>}
             </div>
@@ -133,6 +144,7 @@ export const Home = () => {
               <div className="h5 fw-bold" style={{ fontSize: '17px' }}>Top 5 Azure Consumers (Microsoft Azure Motivity)</div>
               {data?.azureData?.top5Services && data?.azureData?.top5Services?.length > 0 ? <CustomPieChart
                 data={data?.azureData?.top5Services && topAzureFiveCustomers}
+                costType={data?.azureData?.currency}
                 height={320}
               /> : <div className="h6 d-flex flex-column align-items-center justify-content-center" style={{ height: '312px' }}>No Data Available</div>}
             </div>
@@ -151,6 +163,7 @@ export const Home = () => {
               <div className="h5 fw-bold" style={{ fontSize: '17px' }}>Top 5 GCP Consumers (My Maps Project)</div>
               {data?.gcpData?.top5Services && data?.gcpData?.top5Services?.length > 0 ? <CustomPieChart
                 data={data?.gcpData?.top5Services && topGCPFiveCustomers}
+                costType={data?.gcpData?.currency}
                 height={320}
               /> : <div className="h6 d-flex flex-column align-items-center justify-content-center" style={{ height: '312px' }}>No Data Available</div>}
             </div>

@@ -13,9 +13,12 @@ import GcpSelector from "../components/Gcp/GcpSelector";
 // import toast from "react-hot-toast";
 import BillingInformationCard from "../common/BillingInformationCard";
 import BillingDetailsChartsAndTable from "../common/BillingDetailsChartsAndTable";
+import { useContext } from "react";
+import LoaderContext from "../context/LoaderContext";
 
 export const GcpPage = () => {
   const [serviceDescription, setServiceDescription] = useState("");
+  const { loading, startLoading } = useContext(LoaderContext);
   // const [sidenavOpen, setSidenavOpen] = useState(false);
   const [dateRange, setDateRange] = useState({
     startDate: "",
@@ -30,6 +33,7 @@ export const GcpPage = () => {
   // console.log("data", data);
 
   useEffect(() => {
+    startLoading(true)
     if (selectedGcpProjectValue !== '') {
       forGcpGet();
     }
@@ -68,10 +72,12 @@ export const GcpPage = () => {
       .then((res) => {
         console.log(res, "prudhvi");
         setData(res);
+        startLoading(false)
       })
       .catch((error) => {
         console.log(error, error?.response?.data?.error, "ghgg");
         // toast.error(error?.response?.data?.error);
+        startLoading(false)
       });
   };
 
