@@ -12,9 +12,13 @@ import Typography from "@mui/material/Typography";
 // import CustomPieChart from "../components/CustomPieChart";
 import BillingInformationCard from "../common/BillingInformationCard";
 import BillingDetailsChartsAndTable from "../common/BillingDetailsChartsAndTable";
+import { useContext } from "react";
+import LoaderContext from "../context/LoaderContext";
+
 export const AwsPage = () => {
   const [service, setService] = useState("");
   // const [sidenavOpen, setSidenavOpen] = useState(false);
+  const { loading, startLoading } = useContext(LoaderContext);
   const [dateRange, setDateRange] = useState({
     startDate: null,
     endDate: null,
@@ -28,6 +32,7 @@ export const AwsPage = () => {
 
 
   useEffect(() => {
+    startLoading(true)
     if (selectedAccountValue !== '') {
       forAwsGet();
     }
@@ -56,9 +61,11 @@ export const AwsPage = () => {
       .then((res) => {
         console.log(res);
         setData(res);
+        startLoading(false)
       })
       .catch((error) => {
         console.log(error);
+        startLoading(false)
       });
   };
 
